@@ -6,10 +6,10 @@ from cinema.models import Movie, Genre, Actor, CinemaHall
 class GenreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Genre
-        fields = ['id', 'name']
+        fields = ["id", "name"]
         extra_kwargs = {
-            'name': {
-                'validators': [
+            "name": {
+                "validators": [
                     UniqueValidator(queryset=Genre.objects.all())
                 ]
             }
@@ -25,24 +25,26 @@ class CinemaHallSerializer(serializers.ModelSerializer):
 class ActorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Actor
-        fields = ['id', 'first_name', 'last_name']
+        fields = ["id", "first_name", "last_name"]
 
 
 class MovieSerializer(serializers.ModelSerializer):
     actors = serializers.PrimaryKeyRelatedField(
-        many=True, queryset=Actor.objects.all()
+        many=True,
+        queryset=Actor.objects.all()
     )
     genres = serializers.PrimaryKeyRelatedField(
-        many=True, queryset=Genre.objects.all()
+        many=True,
+        queryset=Genre.objects.all()
     )
 
     class Meta:
         model = Movie
         fields = [
-            'id',
-            'title',
-            'description',
-            'duration',
-            'actors',
-            'genres'
+            "id",
+            "title",
+            "description",
+            "duration",
+            "actors",
+            "genres",
         ]
